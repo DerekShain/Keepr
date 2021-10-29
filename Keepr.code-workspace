@@ -7,10 +7,6 @@
     {
       "path": "Keepr",
       "name": "server"
-    },
-    {
-      "name": "Keepr",
-      "path": "."
     }
   ],
   "settings": {
