@@ -1,6 +1,6 @@
 namespace Keepr.Models
 {
-  public interface VaultKeep
+  public class VaultKeep
   {
     public int Id { get; set; }
     public int VaultId { get; set; }
