@@ -32,11 +32,12 @@ namespace Keepr.Controllers
     }
 
     [HttpGet("{vaultId}")]
-    public ActionResult<Vault> Get(int vaultId)
+    public async Task<ActionResult<Vault>> GetAsync(int vaultId)
     {
       try
       {
-        var vault = _vs.GetById(vaultId);
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        var vault = _vs.GetById(vaultId, userInfo?.Id);
         return Ok(vault);
       }
       catch (System.Exception err)
@@ -65,14 +66,16 @@ namespace Keepr.Controllers
 
     [HttpPut("{vaultId}")]
     [Authorize]
-    public async Task<ActionResult<Vault>> Edit(int vaultId, [FromBody] Vault vaultData)
+    public async Task<ActionResult<Vault>> Edit(int vaultId, [FromBody] Vault vaultData, string userId)
     {
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
         vaultData.CreatorId = userInfo.Id;
+        userId = userInfo.Id;
         vaultData.Id = vaultId;
-        return Ok(_vs.Edit(vaultData));
+        Vault vault = _vs.Edit(vaultId, vaultData, userId);
+        return Ok(vault);
       }
       catch (System.Exception err)
       {

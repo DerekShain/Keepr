@@ -18,10 +18,16 @@ namespace Keepr.Repositories
     {
       string sql = @"
       SELECT
-      *
-      FROM vaults
-      ";
-      return _db.Query<Vault>(sql).ToList();
+      v.*,
+      a.*
+      FROM vaults v
+      JOIN accounts a ON a.id = v.creatorId;";
+      return _db.Query<Vault, Profile, Vault>(sql, (v, a) =>
+      {
+        v.Creator = a;
+        return v;
+      }
+      ).ToList();
     }
 
     public Vault GetById(int vaultId)
@@ -31,9 +37,9 @@ namespace Keepr.Repositories
       v.*,
       a.*
       FROM vaults v
-      JOIN accounts a ON a.id = v.userId
+      JOIN accounts a ON a.id = v.creatorId
       WHERE v.id = @vaultId;";
-      return _db.Query<Vault, Account, Vault>(sql, (v, a) =>
+      return _db.Query<Vault, Profile, Vault>(sql, (v, a) =>
       {
         v.Creator = a;
         return v;
@@ -81,6 +87,7 @@ namespace Keepr.Repositories
       {
         throw new Exception("Too many rows affected");
       }
+      return vaultData;
     }
 
     internal void Delete(int vaultId)

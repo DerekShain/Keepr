@@ -42,11 +42,11 @@ INSERT INTO keeps(
 );
 
 CREATE TABLE IF NOT EXISTS vaults(
-  id int NOT NULL primary key AUTO_INCREMENT  COMMENT 'primary key',
+  id INT NOT NULL AUTO_INCREMENT primary key COMMENT 'primary key',
   creatorId VARCHAR(255) NOT NULL COMMENT 'Creator Id',
   name VARCHAR(255) NOT NULL COMMENT 'Vault Name',
   description VARCHAR(255) NOT NULL COMMENT 'Vault Description',
-  isPrivate BOOLEAN DEFAULT 0 COMMENT 'Vault Is Private',
+  isPrivate TINYINT DEFAULT 0 COMMENT 'Vault Is Private',
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
 
