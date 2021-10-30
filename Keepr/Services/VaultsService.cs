@@ -46,8 +46,13 @@ namespace Keepr.Services
       vault.Name = vaultData.Name ?? vault.Name;
       vault.Description = vaultData.Description ?? vault.Description;
       vault.CreatorId = vaultData.CreatorId ?? vault.CreatorId;
-      vault.IsPrivate = vaultData.IsPrivate;
+      vault.IsPrivate = vaultData.IsPrivate ?? vault.IsPrivate;
       return _rs.Edit(vault);
+    }
+
+    public List<Vault> GetVaultByProfile(string profileId)
+    {
+      return _rs.GetVaultByProfile(profileId);
     }
 
     public void Delete(int vaultId, string userId)

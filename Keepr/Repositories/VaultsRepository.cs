@@ -68,6 +68,17 @@ namespace Keepr.Repositories
       return vaultData;
     }
 
+    internal List<Vault> GetVaultByProfile(string profileId)
+    {
+      string sql = @"
+      SELECT
+      *
+      FROM vaults v
+      WHERE v.creatorId = @profileId
+      ";
+      return _db.Query<Vault>(sql, new { profileId }).ToList();
+    }
+
     public Vault Edit(Vault vaultData)
     {
       string sql = @"

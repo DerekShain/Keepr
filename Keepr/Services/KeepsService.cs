@@ -44,6 +44,12 @@ namespace Keepr.Services
       keep.Keeps = keepData.Keeps;
       return _rs.Edit(keep);
     }
+
+    internal List<Keep> GetKeepByProfile(string profileId)
+    {
+      return _rs.GetKeepByProfile(profileId);
+    }
+
     public void Delete(int keepId, string userId)
     {
       Keep exists = GetById(keepId);

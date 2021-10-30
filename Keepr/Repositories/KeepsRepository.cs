@@ -69,6 +69,17 @@ namespace Keepr.Repositories
       return keepData;
     }
 
+    internal List<Keep> GetKeepByProfile(string profileId)
+    {
+      string sql = @"
+      SELECT
+      *
+      FROM keeps k
+      WHERE k.creatorId = @profileId
+      ";
+      return _db.Query<Keep>(sql, new { profileId }).ToList();
+    }
+
     public Keep Edit(Keep keepData)
     {
       string sql = @"
