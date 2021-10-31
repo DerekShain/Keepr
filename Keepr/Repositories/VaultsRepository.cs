@@ -68,7 +68,7 @@ namespace Keepr.Repositories
       return vaultData;
     }
 
-    internal List<Vault> GetVaultByProfile(string profileId)
+    internal List<Vault> GetVaultByProfile(string profileId, string userId)
     {
       string sql = @"
       SELECT

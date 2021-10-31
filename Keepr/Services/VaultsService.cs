@@ -31,6 +31,20 @@ namespace Keepr.Services
       return Exists;
     }
 
+    public Vault GetVaultById(int vaultId, string userId)
+    {
+      Vault Exists = _rs.GetById(vaultId);
+      if (Exists == null)
+      {
+        throw new Exception("Invalid Id");
+      }
+      if (Exists.IsPrivate == false && Exists.CreatorId != userId)
+      {
+        throw new Exception("You do not have access to this vault");
+      }
+      return Exists;
+    }
+
     public Vault Create(Vault vaultData)
     {
       return _rs.Create(vaultData);
@@ -50,9 +64,13 @@ namespace Keepr.Services
       return _rs.Edit(vault);
     }
 
-    public List<Vault> GetVaultByProfile(string profileId)
+    public List<Vault> GetVaultByProfile(string profileId, string userId)
     {
-      return _rs.GetVaultByProfile(profileId);
+      if (profileId == userId)
+      {
+        return _rs.GetVaultByProfile(profileId, userId);
+      }
+      return _rs.GetVaultByProfile(profileId, userId);
     }
 
     public void Delete(int vaultId, string userId)

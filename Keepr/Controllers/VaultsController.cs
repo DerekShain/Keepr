@@ -13,9 +13,11 @@ namespace Keepr.Controllers
   public class VaultsController : ControllerBase
   {
     private readonly VaultsService _vs;
-    public VaultsController(VaultsService vs)
+    private readonly VaultKeepsService _vks;
+    public VaultsController(VaultsService vs, VaultKeepsService vks)
     {
       _vs = vs;
+      _vks = vks;
     }
     [HttpGet]
     public ActionResult<List<Vault>> GetAll()
@@ -32,7 +34,7 @@ namespace Keepr.Controllers
     }
 
     [HttpGet("{vaultId}")]
-    public async Task<ActionResult<Vault>> GetAsync(int vaultId)
+    public async Task<ActionResult<Vault>> GetVaultById(int vaultId)
     {
       try
       {
@@ -92,6 +94,21 @@ namespace Keepr.Controllers
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
         _vs.Delete(vaultId, userInfo.Id);
         return Ok("VAULT has been Deleted!");
+      }
+      catch (System.Exception err)
+      {
+        return BadRequest(err.Message);
+      }
+    }
+    [HttpGet("{vaultId}/keeps")]
+    public async Task<ActionResult<List<VaultKeepViewModel>>> GetVaultKeeps(int vaultId)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        Vault vault = _vs.GetById(vaultId, userInfo?.Id);
+        List<VaultKeepViewModel> vaultKeeps = _vks.Get(vault);
+        return Ok(vaultKeeps);
       }
       catch (System.Exception err)
       {

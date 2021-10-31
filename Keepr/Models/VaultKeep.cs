@@ -7,4 +7,9 @@ namespace Keepr.Models
     public int KeepId { get; set; }
     public string CreatorId { get; set; }
   }
+  public class VaultKeepViewModel : Keep
+  {
+    public int KeepId { get; set; }
+    public int VaultKeepId { get; set; }
+  }
 }
