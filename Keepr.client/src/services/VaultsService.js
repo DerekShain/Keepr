@@ -29,6 +29,7 @@ class VaultsService{
     AppState.vaults.splice(vaultIndex, 1, new Vault(res.data))
   }
   async deleteVault(vaultId){
+    logger.log('vault vaultId', vaultId)
     const res = await api.delete(`api/vaults/${vaultId}`)
     logger.log('delete vault res', res.data)
     AppState.vaults = AppState.vaults.filter(k => k.id !== vaultId)

@@ -1,12 +1,15 @@
 <template>
-  <div class="card" style="width: 18rem;">
-  <img :src="profileKeep.img" class="card-img-top" alt="...">
-  <div class="card-body">
+  <div class="myCard text-white my-3">
+  <img :src="profileKeep.img" class="card-img" alt="..." >
+  <div class="card-img-overlay" data-bs-toggle="modal" :data-bs-target="'#k-modal-' + keep.id">
     <h5 class="card-title">{{profileKeep.name}}</h5>
-    <p class="card-text">{{profileKeep.description}}</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
 </div>
+<Modal :id="'k-modal-' + keep.id" class="text-light">
+    <template #modal-body>
+      <KeepInfo :keep="keep" class="" />
+    </template>
+  </Modal>
 </template>
 
 <script>

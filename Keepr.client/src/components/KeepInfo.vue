@@ -17,6 +17,13 @@
       </div>
       <div class="card-footer bg-white mt-5 p-3">
         <button class="btn btn-outline bg-info">Add To Vault</button>
+        <div class="" v-if="keep.creatorId === account.id">
+      <i
+        class="mdi mdi-delete-forever selectable text-danger f-20 mx-3"
+        title="Delete Post"
+        @click="deleteKeep()"
+      ></i>
+</div>
         <div class="" v-if="keep.creator">
       <router-link :to="{ name: 'Profile', params: {profileId: keep.creatorId}}" class="btn text-success lighten-30 selectable text-uppercase">
 
@@ -35,6 +42,8 @@ import { Keep } from "../models/Keep";
 import { computed } from "@vue/runtime-core";
 import { AppState } from "../AppState";
 import Pop from "../utils/Pop";
+import { Modal } from 'bootstrap';
+import { logger } from '../utils/Logger';
 export default {
   props: {
     keep: {
@@ -48,11 +57,13 @@ export default {
       async deleteKeep() {
         try {
           if (await Pop.confirm()) {
-            await keepsService.deleteKeep(props.keep.id);
-            Pop.toats("Keep Deleted");
+          await keepsService.deleteKeep(props.keep.id);
+          Pop.toast("Keep Deleted");
+          const modal = Modal.getInstance(document.getElementById('k-modal-'+ !keep.id))
+          modal.hide()
           }
         } catch (error) {
-          Pop.toast(error.message, "error");
+          Pop.toast("Error Deleting Vault", "error");
           logger.log(error);
         }
       },

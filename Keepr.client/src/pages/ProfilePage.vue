@@ -25,16 +25,24 @@
       <div class="row my-5" v-if="profileKeeps">
         <div class="title">
         <h1>Keeps</h1>
-        <i class="mdi mdi-plus f-20" title="Add Keep"></i>
+        <i class="mdi mdi-plus f-20" title="Add Keep" data-bs-toggle="modal" :data-bs-target="'#k-modal-' + keep.id" ></i>
         </div>
+        <div class="masonry-with-columns">
         <!-- {{profileKeeps}} -->
         <ProfileKeep v-for="k in profileKeeps" :key="k.id" :profileKeep="k" class="rounded m-2"/>
+          
+        </div>
       </div>
     </div>
   </div>
   <Modal :id="'v-modal-' + vault.id" class="text-light">
     <template #modal-body>
       <VaultForm :vault="vault" class="" />
+    </template>
+  </Modal>
+  <Modal :id="'k-modal-' + keep.id" class="text-light">
+    <template #modal-body>
+      <KeepForm :keep="keep" class="" />
     </template>
   </Modal>
 </template>
@@ -68,6 +76,7 @@ export default {
     return {
       profile: computed(() => AppState.profile),
       vault: computed(() => AppState.vault),
+      keep: computed(() => AppState.keep),
       profileKeeps: computed(() => AppState.profileKeeps),
       profileKeep: computed(() => AppState.profileKeep),
       profileVault: computed(() => AppState.profileVault),
@@ -89,5 +98,28 @@ export default {
 .title{
   display: flex;
   align-items:center;
+}
+.masonry-with-columns {
+  columns: 6 300px;
+  column-gap: 1rem;
+  div {
+    width: 200px;
+    // background: #EC985A;
+    color: white;
+    margin: 0 1rem 1rem 0;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-family: system-ui;
+    font-weight: 900;
+    font-size: 2rem;
+  } 
+  @for $i from 1 through 36 { 
+    div:nth-child(#{$i}) {
+      $h: (random(400) + 100) + px;
+      height: $h;
+      line-height: $h;
+    }
+  }
 }
 </style>
