@@ -1,5 +1,7 @@
 import { AppState } from "../AppState"
 import { Profile } from "../models/Profile"
+import { Keep } from "../models/Keep"
+import { Vault } from "../models/Vault"
 import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
 
@@ -11,17 +13,17 @@ class ProfilesService{
     logger.log('get profile by id res', res)
     AppState.profile = new Profile(res.data)
   }
-  async getKeepsByProfileId(profileId){
-    AppState.profile = null
-    const res = await api.get(`api/profiles/${profileId}/keeps`)
+  async getKeepsByProfileId(profileId, keepData){
+    AppState.profileKeeps = null
+    const res = await api.get(`api/profiles/${profileId}/keeps`, keepData)
     logger.log('get profile keeps res', res)
-    AppState.profile = new Profile(res.data)
+    AppState.profileKeeps = res.data.map(k => new Keep(k))
   }
-  async getVaultsByProfileId(profileId){
-    AppState.profile = null
-    const res = await api.get(`api/profiles/${profileId}/vaults`)
+  async getVaultsByProfileId(profileId, vaultData){
+    AppState.profileVaults = null
+    const res = await api.get(`api/profiles/${profileId}/vaults`, vaultData)
     logger.log('get profile vaults res', res)
-    AppState.profile = new Profile(res.data)
+    AppState.profileVaults = res.data.map(k => new Vault(k))
   }
 }
 

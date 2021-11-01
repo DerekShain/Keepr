@@ -13,18 +13,29 @@ import { computed, watchEffect} from "@vue/runtime-core"
 import { keepsService } from '../services/KeepsService'
 import { AppState } from "../AppState"
 import Pop from "../utils/Pop"
+import { profilesService } from '../services/ProfilesService'
 export default {
   name: 'Home',
   setup(){
     watchEffect(() => {
       try{
-        keepsService.getAll()
+        keepsService.getAll(),
+        profilesService.getById(),
+        profilesService.getKeepsByProfileId(),
+        profilesService.getVaultsByProfileId()
       }catch (error){
         Pop.toast(error.message, 'error')
       }
     })
   return{
-    keeps: computed(() => AppState.keeps)
+    keeps: computed(() => AppState.keeps),
+    vaults: computed(() => AppState.vaults),
+    profile: computed(() => AppState.profile),
+    profiles: computed(() => AppState.profiles),
+    account: computed(() => AppState.account),
+    accounts: computed(() => AppState.accounts),
+    vaultkeeps: computed(() => AppState.vaultkeeps),
+    vaultkeep: computed(() => AppState.vaultkeep)
   }
   }
 }

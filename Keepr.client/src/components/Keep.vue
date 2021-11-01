@@ -1,14 +1,14 @@
 <template>
   <div class="myCard text-white m-2">
     <img :src="keep.img" class="card-img" alt="..." />
-    <div
-      class="card-img-overlay"
-      data-bs-toggle="modal"
-      :data-bs-target="'#k-modal-' + keep.id"
-      @click="viewCount(keep)"
-    >
+    <div class="card-img-overlay" data-bs-toggle="modal" :data-bs-target="'#k-modal-' + keep.id" @click="viewCount(keep)">
       <h5 class="card-title">{{ keep.name }}</h5>
+        <div class="" v-if="keep.creator">
+      <router-link :to="{ name: 'Profile', params: {profileId: keep.creatorId}}" class="btn text-success lighten-30 selectable text-uppercase">
+
       <img :src="keep.creator.picture" class="rounded-circle user-img" alt="" />
+          </router-link>
+        </div>
     </div>
   </div>
   <Modal :id="'k-modal-' + keep.id" class="text-light">
@@ -37,6 +37,11 @@ export default {
   setup(props) {
     return {
       account: computed(() => AppState.account),
+      profile: computed(() => AppState.profile),
+      profile: computed(() => AppState.profile),
+      profileKeeps: computed(() => AppState.profileKeeps),
+      keeps: computed(() => AppState.keeps),
+      profileVaults: computed(() => AppState.profileVaults),
       async deleteKeep() {
         try {
           if (await Pop.confirm()) {
@@ -63,10 +68,7 @@ export default {
 </script>
 
 <style lang="scss">
-// body {
-//   margin: 0;
-//   padding: 1rem;
-// }
+
 .card-img-overlay {
   display: flex;
   flex-direction: row;
@@ -93,27 +95,4 @@ export default {
   height: 45px;
 }
 
-// .masonry-with-columns {
-//   columns: 6 200px;
-//   column-gap: 1rem;
-//   div {
-//     width: 150px;
-//     background: #EC985A;
-//     color: white;
-//     margin: 0 1rem 1rem 0;
-//     display: inline-block;
-//     width: 100%;
-//     text-align: center;
-//     font-family: system-ui;
-//     font-weight: 900;
-//     font-size: 2rem;
-//   }
-//   @for $i from 1 through 36 {
-//     div:nth-child(#{$i}) {
-//       $h: (random(400) + 100) + px;
-//       height: $h;
-//       line-height: $h;
-//     }
-//   }
-// }
 </style>

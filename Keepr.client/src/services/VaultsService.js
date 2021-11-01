@@ -16,9 +16,11 @@ class VaultsService{
     AppState.vault = new Vault(res.data)
   }
   async createVault(vaultData){
+    logger.log('create vault res', vaultData)
+    vaultData.isPrivate = false
     const res = await api.post('api/vaults', vaultData)
     logger.log('create vault res', res)
-    AppState.vaults = [new Vault(res.data), ...AppState.vaults]
+    // AppState.vaults = [new Vault(res.data), ...AppState.vaults]
   }
   async editVault(vaultData){
     const res = await api.put(`api/vaults/${vaultData.id}`, vaultData)
