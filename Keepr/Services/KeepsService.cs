@@ -45,6 +45,15 @@ namespace Keepr.Services
       return _rs.Edit(keep);
     }
 
+    public Keep IncrementInteractions(Keep keepData)
+    {
+      Keep keep = GetById(keepData.Id);
+      keep.Views = keepData.Views;
+      keep.Shares = keepData.Shares;
+      keep.Keeps = keepData.Keeps;
+      return _rs.Edit(keep);
+    }
+
     internal List<Keep> GetKeepByProfile(string profileId)
     {
       return _rs.GetKeepByProfile(profileId);

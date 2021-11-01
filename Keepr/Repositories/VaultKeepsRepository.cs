@@ -17,9 +17,18 @@ namespace Keepr.Repositories
     public VaultKeep Create(VaultKeep vk)
     {
       string sql = @"
-      INSERT INTO
-     vault_keeps(vaultId, keepId, creatorId)
-     VALUES (@VaultId, @KeepId, @CreatorId);
+      INSERT INTO 
+      vault_keeps
+      (
+        vaultId, 
+        keepId, 
+        creatorId
+        )
+     VALUES 
+     (
+       @VaultId, 
+       @KeepId, 
+       @CreatorId);
      SELECT LAST_INSERT_ID();
      ";
       vk.Id = _db.ExecuteScalar<int>(sql, vk);
@@ -41,11 +50,6 @@ namespace Keepr.Repositories
       WHERE vk.vaultId = @vaultId
       ";
       return _db.Query<VaultKeepViewModel>(sql, new { vaultId }).ToList();
-      // return _db.Query<Review, Profile, Review>(sql, (r, a) =>
-      // {
-      //   r.Creator = a;
-      //   return r;
-      // }, new { id }).ToList();
     }
 
     internal List<VaultKeepViewModel> GetKeepsById(int vaultId)
@@ -63,11 +67,6 @@ namespace Keepr.Repositories
       WHERE vk.vaultId = @vaultId
       ";
       return _db.Query<VaultKeepViewModel>(sql, new { vaultId }).ToList();
-      // return _db.Query<Review, Profile, Review>(sql, (r, a) =>
-      // {
-      //   r.Creator = a;
-      //   return r;
-      // }, new { id }).ToList();
     }
     internal VaultKeep GetAll(int keepVaultId)
     {

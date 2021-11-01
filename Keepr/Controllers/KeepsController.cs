@@ -88,6 +88,20 @@ namespace Keepr.Controllers
       }
     }
 
+    [HttpPut("{keepId}/interaction")]
+    public ActionResult<Keep> IncrementInteractions(int keepId, [FromBody] Keep keepData)
+    {
+      try
+      {
+        keepData.Id = keepId;
+        return Ok(_ks.IncrementInteractions(keepData));
+      }
+      catch (System.Exception err)
+      {
+        return BadRequest(err.Message);
+      }
+    }
+
     // DELETE api/keeps/{id}
     [HttpDelete("{keepId}")]
     [Authorize]
