@@ -14,15 +14,17 @@ import { keepsService } from '../services/KeepsService'
 import { AppState } from "../AppState"
 import Pop from "../utils/Pop"
 import { profilesService } from '../services/ProfilesService'
+import { useRoute } from 'vue-router'
 export default {
   name: 'Home',
   setup(){
+    const route = useRoute()
     watchEffect(() => {
       try{
         keepsService.getAll(),
-        profilesService.getById(),
-        profilesService.getKeepsByProfileId(),
-        profilesService.getVaultsByProfileId()
+        // profilesService.getById(),
+        profilesService.getKeepsByProfileId(route.params.profileId),
+        profilesService.getVaultsByProfileId(route.params.profileId)
       }catch (error){
         Pop.toast(error.message, 'error')
       }
@@ -35,7 +37,8 @@ export default {
     account: computed(() => AppState.account),
     accounts: computed(() => AppState.accounts),
     vaultkeeps: computed(() => AppState.vaultkeeps),
-    vaultkeep: computed(() => AppState.vaultkeep)
+    vaultkeep: computed(() => AppState.vaultkeep),
+    profileVaults: computed(() => AppState.profileVaults),
   }
   }
 }

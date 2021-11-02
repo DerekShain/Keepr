@@ -1,13 +1,13 @@
 <template>
   <div class="myCard text-white my-3">
   <img :src="profileKeep.img" class="card-img" alt="..." >
-  <div class="card-img-overlay" data-bs-toggle="modal" :data-bs-target="'#k-modal-' + keep.id">
+  <div class="card-img-overlay" data-bs-toggle="modal" :data-bs-target="'#k-modal-' + profileKeep.id">
     <h5 class="card-title">{{profileKeep.name}}</h5>
   </div>
 </div>
-<Modal :id="'k-modal-' + keep.id" class="text-light">
+<Modal :id="'k-modal-' + profileKeep.id" class="text-light">
     <template #modal-body>
-      <KeepInfo :keep="keep" class="" />
+      <KeepInfo :keep="profileKeep" class="" />
     </template>
   </Modal>
 </template>

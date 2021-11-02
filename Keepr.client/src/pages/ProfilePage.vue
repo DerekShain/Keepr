@@ -77,6 +77,7 @@ export default {
       profile: computed(() => AppState.profile),
       vault: computed(() => AppState.vault),
       keep: computed(() => AppState.keep),
+      keeps: computed(() => AppState.keeps),
       profileKeeps: computed(() => AppState.profileKeeps),
       profileKeep: computed(() => AppState.profileKeep),
       profileVault: computed(() => AppState.profileVault),

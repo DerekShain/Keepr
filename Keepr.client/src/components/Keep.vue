@@ -4,7 +4,7 @@
     <div class="card-img-overlay" data-bs-toggle="modal" :data-bs-target="'#k-modal-' + keep.id" @click="viewCount(keep)">
       <h5 class="card-title">{{ keep.name }}</h5>
         <div class="" v-if="keep.creator">
-      <router-link :to="{ name: 'Profile', params: {profileId: keep.creatorId}}" class="btn text-success lighten-30 selectable text-uppercase">
+      <router-link :to="{ name: 'Profile', params: {profileId: keep.creatorId} }" class="btn text-success lighten-30 selectable text-uppercase">
 
       <img :src="keep.creator.picture" class="rounded-circle user-img" alt="" />
           </router-link>

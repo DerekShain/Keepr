@@ -27,4 +27,4 @@ class VaultKeepsService{
   }
 }
 
-export const keepsService = new VaultKeepsService()
+export const vaultKeepsService = new VaultKeepsService()
