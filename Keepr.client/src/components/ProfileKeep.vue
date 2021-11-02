@@ -23,7 +23,7 @@
   </div>
 <Modal :id="'k-modal-' + profileKeep.id" class="text-light">
     <template #modal-body>
-      <KeepInfo :keep="profileKeep" class="" />
+      <KeepInfo :keep="profileKeep"/>
     </template>
   </Modal>
 </template>
@@ -46,28 +46,19 @@ export default {
       default: () => {
         return new Keep();
       },
-      keep:{
-        type: Keep,
-      },
       account:{
         type: Account
       }
     },
   },
   setup(props) {
-    // const route = useRoute();
-    // watchEffect(async()=>{
-    //   await profilesService.getById(route.params.profileId),
-    //   await profilesService.getKeepsByProfileId(route.params.profileId),
-    //   await profilesService.getVaultsByProfileId(route.params.profileId)
-    // })
     return {
       profileKeeps: computed(() => AppState.profileKeeps),
       keep:computed(() => AppState.keep),
       keeps:computed(() => AppState.keeps),
        async viewCount(profileKeep) {
         try {
-          keep.views = keep.views + 1;
+          profileKeep.views = profileKeep.views + 1;
           await keepsService.keepInteractions(profileKeep);
         } catch (error) {
           Pop.toast(error.message, "error");

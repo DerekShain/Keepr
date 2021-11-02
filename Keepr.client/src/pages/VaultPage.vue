@@ -41,6 +41,7 @@ export default {
       },
       account: {
         type: Account
+        
       },
       
     },
@@ -83,7 +84,7 @@ export default {
           if (await Pop.confirm()) {
             await vaultsService.deleteVault(route.params.vaultId);
             Pop.toast("Vault Deleted");
-            router.push({ name: "Profile", params: { profileId: vault.creatorId}})
+            router.push({ name: "Profile", params: { profileId: AppState.account.id}})
           }
         } catch (error) {
           Pop.toast("Error Deleting Vault", "error");

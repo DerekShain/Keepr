@@ -1,7 +1,7 @@
 <template>
   <div class="m-2 row">
     <div class="masonry-with-columns">
-      <Keep v-for="k in keeps" :key="k.id" :keep="k" :account="account" />
+      <Keep v-for="k in keeps" :key="k.id" :keep="k" />
     </div>
   </div>
 </template>
@@ -41,7 +41,7 @@ export default {
       keeps: computed(() => AppState.keeps),
       vaults: computed(() => AppState.vaults),
       profile: computed(() => AppState.profile),
-      // profiles: computed(() => AppState.profiles),
+      profiles: computed(() => AppState.profiles),
       vaultkeeps: computed(() => AppState.vaultkeeps),
       vaultkeep: computed(() => AppState.vaultkeep),
       profileVaults: computed(() => AppState.profileVaults),

@@ -2,10 +2,7 @@
 <div class="col">
   <div class="myCard text-white m-2">
     <img :src="keep.img" class="card-img" alt="..." />
-    <div
-      class="card-img-overlay"
-      
-    >
+    <div class="card-img-overlay">
       <h5 class="card-title selectable" data-bs-toggle="modal"
       :data-bs-target="'#k-modal-' + keep.id"
       @click="viewCount(keep)">{{ keep.name }}</h5>
@@ -23,7 +20,7 @@
 </div>
   <Modal :id="'k-modal-' + keep.id" class="text-light">
     <template #modal-body>
-      <KeepInfo :account="account" :keep="keep" class="" />
+      <KeepInfo  :keep="keep"/>
     </template>
   </Modal>
 </template>
@@ -56,6 +53,7 @@ export default {
       profile: computed(() => AppState.profile),
       profileKeeps: computed(() => AppState.profileKeeps),
       keeps: computed(() => AppState.keeps),
+      vaults: computed(() => AppState.vaults),
       profileVaults: computed(() => AppState.profileVaults),
       async deleteKeep() {
         try {

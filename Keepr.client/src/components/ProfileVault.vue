@@ -11,7 +11,7 @@
       </div>
       <div class="d-flex">
         <router-link
-          :to="{ name: 'Vault', params: { vaultId: profileVault.id } }"
+          :to="{ name: 'Vault', params: { vaultId: profileVault.id }, query: {creatorId: account.id} }"
           class="btn btn-dark lighten-30 selectable text-uppercase"
         >
           GO TO VAULT
@@ -39,6 +39,7 @@ import { profilesService } from "../services/ProfilesService";
 import { Vault } from "../models/Vault";
 import { useRoute } from "vue-router";
 import { vaultsService } from "../services/VaultsService";
+import { Account } from '../models/Account';
 
 export default {
   props: {
@@ -48,6 +49,9 @@ export default {
         return new Vault();
       },
     },
+    account:{
+      type: Account
+    }
   },
   setup(props) {
     const route = useRoute();

@@ -39,12 +39,12 @@
   </div>
   <Modal :id="'v-modal-' + vault.id" class="text-light">
     <template #modal-body>
-      <VaultForm :vault="vault" class="" />
+      <VaultForm :vault="vault"/>
     </template>
   </Modal>
   <Modal :id="'k-modal-' + keep.id" class="text-light">
     <template #modal-body>
-      <KeepForm :keep="keep" class="" />
+      <KeepForm :keep="keep"/>
     </template>
   </Modal>
 </template>
