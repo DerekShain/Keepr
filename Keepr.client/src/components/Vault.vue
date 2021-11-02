@@ -1,7 +1,7 @@
 <template>
   <div class="card" style="width: 18rem;">
   <div class="card-body">
-    <h5 class="card-title">{{vault.name}}</h5>
+    <h5 class="card-title">{{keep.name}}</h5>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
     <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
@@ -19,10 +19,10 @@ import { logger } from '../utils/Logger';
 import { Vault } from "../models/Vault";
 export default {
   props: {
-    vault: {
-      type: Vault,
+    keep: {
+      type: Keep,
       default: () => {
-        return new Vault();
+        return new Keep();
       },
     },
   },
@@ -31,8 +31,6 @@ export default {
       account: computed(() => AppState.account),
       profile: computed(() => AppState.profile),
       profile: computed(() => AppState.profile),
-      // vault: computed(() => AppState.vault),
-      // vaults: computed(() => AppState.vaults),
       profileKeeps: computed(() => AppState.profileKeeps),
       keeps: computed(() => AppState.keeps),
       profileVaults: computed(() => AppState.profileVaults),

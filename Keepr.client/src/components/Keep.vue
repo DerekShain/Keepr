@@ -4,16 +4,17 @@
     <div class="card-img-overlay" data-bs-toggle="modal" :data-bs-target="'#k-modal-' + keep.id" @click="viewCount(keep)">
       <h5 class="card-title">{{ keep.name }}</h5>
         <div class="" v-if="keep.creator">
-      <router-link :to="{ name: 'Profile', params: {profileId: keep.creatorId} }" class="btn text-success lighten-30 selectable text-uppercase">
-
-      <img :src="keep.creator.picture" class="rounded-circle user-img" alt="" />
-          </router-link>
+      <!-- <router-link :to="{ name: 'Profile', params: {profileId: keep.creatorId} }" class="btn text-success lighten-30 selectable text-uppercase"> -->
+        <div class="" @click.stop="goToProfile()">
+      <img :src="keep.creator.picture" class="rounded-circle user-img selectable" alt="" />
+        </div>
+          <!-- </router-link> -->
         </div>
     </div>
   </div>
   <Modal :id="'k-modal-' + keep.id" class="text-light">
     <template #modal-body>
-      <KeepInfo :keep="keep" class="" />
+      <KeepInfo :account="account" :keep="keep" class="" />
     </template>
   </Modal>
 </template>
@@ -25,6 +26,9 @@ import { computed } from "@vue/runtime-core";
 import { AppState } from "../AppState";
 import Pop from "../utils/Pop";
 import { logger } from '../utils/Logger';
+import { Account } from '../models/Account'
+import { router } from '../router';
+import { Modal } from 'bootstrap';
 export default {
   props: {
     keep: {
@@ -33,10 +37,12 @@ export default {
         return new Keep();
       },
     },
+    account: {
+      type: Account
+    },
   },
   setup(props) {
     return {
-      account: computed(() => AppState.account),
       profile: computed(() => AppState.profile),
       profile: computed(() => AppState.profile),
       profileKeeps: computed(() => AppState.profileKeeps),
@@ -62,6 +68,11 @@ export default {
           logger.log(error)
         }
       },
+      async goToProfile(){
+        const modal = Modal.getOrCreateInstance(document.getElementById('k-modal-' + props.keep.id));
+        modal.hide()
+        router.push({ name: 'Profile', params: {profileId: props.keep.creatorId} })
+      }
     };
   },
 };

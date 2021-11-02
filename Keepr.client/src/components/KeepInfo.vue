@@ -30,7 +30,9 @@
             Add to Vault
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li v-for="vault in profileVaults" :key="vault.id" @click="addToVault(vault, keep)" class="selectable">{{vault.name}}</li>
+            <div v-if="account.id">
+              <li v-for="vault in profileVaults" :key="vault.id" @click="addToVault(vault, keep)" class="selectable">{{vault.name}}</li>
+            </div>
           </ul>
         </div>
 
@@ -63,20 +65,46 @@
 <script>
 import { keepsService } from "../services/KeepsService";
 import { Keep } from "../models/Keep";
-import { computed } from "@vue/runtime-core";
+import { computed, watchEffect } from "@vue/runtime-core";
 import { AppState } from "../AppState";
 import Pop from "../utils/Pop";
 import { Modal } from "bootstrap";
 import { logger } from "../utils/Logger";
 import { vaultsService } from '../services/VaultsService';
 import { vaultKeepsService } from '../services/VaultKeepsService';
+import { Account } from '../models/Account';
+import { profilesService } from '../services/ProfilesService';
+import { useRoute, useRouter } from 'vue-router';
+
 export default {
   props: {
     keep: {
       type: Keep,
+      default: () => {
+        return new Keep();
+      },
+    },
+    account: {
+      type: Account
     },
   },
   setup(props) {
+    const route = useRoute();
+    watchEffect(() => {
+      try{
+        // debugger;
+        if(props.account){
+         profilesService.getKeepsByProfileId(props.account.id),
+          profilesService.getVaultsByProfileId(props.account.id)
+        }
+        keepsService.getAll()
+        // profilesService.getById(),
+        // profilesService.getKeepsByProfileId(props.account.id),
+        // profilesService.getVaultsByProfileId(props.account.id)
+      }catch (error){
+        Pop.toast(error.message, 'error')
+      }
+    })
     return {
       account: computed(() => AppState.account),
       keeps: computed(() => AppState.keeps),
@@ -86,9 +114,7 @@ export default {
           if (await Pop.confirm()) {
             await keepsService.deleteKeep(props.keep.id);
             Pop.toast("Keep Deleted");
-            const modal = Modal.getInstance(
-              document.getElementById("k-modal-" + !keep.id)
-            );
+            const modal = Modal.getOrCreateInstance(document.getElementById("k-modal-" + props.keep.id));
             modal.hide();
           }
         } catch (error) {
@@ -103,15 +129,26 @@ export default {
             keepId: keep.id,
           };
           await vaultKeepsService.createVaultKeep(vaultKeep);
+          keep.keeps = keep.keeps + 1;
+          await keepsService.keepInteractions(keep);
           Pop.toast("Keep Added to Vault");
         } catch (error) {
           Pop.toast("Error Adding Keep to Vault", "error");
           logger.log(error);
         }
       },
-    };
-  },
-};
+       async viewCount(keep) {
+        try {
+          keep.views = keep.views + 1;
+          await keepsService.keepInteractions(keep);
+        } catch (error) {
+          Pop.toast(error.message, "error");
+          logger.log(error)
+        }
+    }
+  }
+}
+}
 </script>
 
 <style lang="scss" scoped>

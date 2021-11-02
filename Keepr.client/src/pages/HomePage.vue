@@ -2,7 +2,7 @@
   <div class="container-flex">
     <div class="row m-2">
       <div class="masonry-with-columns m-2">
-        <Keep v-for="k in keeps" :key="k.id" :keep="k" class="rounded-top m-2"/>
+        <Keep v-for="k in keeps" :account="account" :key="k.id" :keep="k" />
       </div>
     </div>
   </div>
@@ -15,17 +15,27 @@ import { AppState } from "../AppState"
 import Pop from "../utils/Pop"
 import { profilesService } from '../services/ProfilesService'
 import { useRoute } from 'vue-router'
+import { Keep } from '../models/Keep'
+import { Account } from '../models/Account'
+
 export default {
   name: 'Home',
-  setup(){
-    const route = useRoute()
+  props: {
+    keep: {
+      type: Keep,
+      default: () => {
+        return new Keep();
+      },
+    },
+    account: {
+      type: Account
+    },
+  },
+  setup(props){
     watchEffect(() => {
       try{
-        keepsService.getAll(),
-        // profilesService.getById(),
-        profilesService.getKeepsByProfileId(route.params.profileId),
-        profilesService.getVaultsByProfileId(route.params.profileId)
-      }catch (error){
+        keepsService.getAll()
+      } catch (error){
         Pop.toast(error.message, 'error')
       }
     })
@@ -68,16 +78,47 @@ export default {
 //   padding: 1rem;
 // }
 
-.masonry-with-columns {
-  columns: 6 300px;
-  column-gap: 1rem;
+// .masonry-with-columns {
+//   columns: 6 300px;
+//   column-gap: 1rem;
+//   div {
+//     width: 200px;
+//     // background: #EC985A;
+//     color: white;
+//     margin: 0 1rem 1rem 0;
+//     display: inline-block;
+//     width: 100%;
+//     text-align: center;
+//     font-family: system-ui;
+//     font-weight: 900;
+//     font-size: 2rem;
+//   } 
+//   @for $i from 1 through 36 { 
+//     div:nth-child(#{$i}) {
+//       $h: (random(400) + 100) + px;
+//       height: $h;
+//       line-height: $h;
+//     }
+//   }
+// }
+
+
+// body {
+//   margin: 0;
+//   padding: 1rem;
+// }
+
+.masonry-with-flex {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-height: 1000px;
+  max-width: 18rem;
   div {
-    width: 200px;
-    // background: #EC985A;
+    width: 150px;
+    background: #EC985A;
     color: white;
     margin: 0 1rem 1rem 0;
-    display: inline-block;
-    width: 100%;
     text-align: center;
     font-family: system-ui;
     font-weight: 900;
@@ -89,6 +130,20 @@ export default {
       height: $h;
       line-height: $h;
     }
+  }
+}
+.masonry-with-columns {
+  columns: 20vw;
+  column-gap: 0.5rem;
+  div {
+    width: 20vw;
+    background: #ec985a;
+    color: white;
+    margin: 2px 1rem 1rem 2px;
+    display: inline-block;
+    font-family: system-ui;
+    font-weight: 500;
+    overflow: hidden;
   }
 }
 </style>

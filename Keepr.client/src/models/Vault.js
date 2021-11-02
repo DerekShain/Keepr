@@ -5,7 +5,7 @@ export class Vault
     this.name = data.name
     this.description = data.description
     this.creatorId = data.creatorId
-    this.isPrivate = data.isPrivate
+    this.isPrivate = data.isPrivate || false
     this.creator = data.creator || {}
   }
 }

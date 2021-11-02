@@ -20,7 +20,9 @@
         <h1>Vaults </h1><i class="mdi mdi-plus f-20" title="Add Vault" data-bs-toggle="modal" :data-bs-target="'#v-modal-' + vault.id" ></i>
         </div>
         <!-- {{profileVaults}} -->
+      
         <ProfileVault v-for="k in profileVaults" :key="k.id" :profileVault="k" class="rounded m-2"/>
+       
       </div>
       <div class="row my-5" v-if="profileKeeps">
         <div class="title">
@@ -29,7 +31,10 @@
         </div>
         <div class="masonry-with-columns">
         <!-- {{profileKeeps}} -->
+        
+
         <ProfileKeep v-for="k in profileKeeps" :key="k.id" :profileKeep="k" class="rounded m-2"/>
+        
           
         </div>
       </div>

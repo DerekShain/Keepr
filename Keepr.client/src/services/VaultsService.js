@@ -17,7 +17,7 @@ class VaultsService{
   }
   async createVault(vaultData){
     logger.log('create vault res', vaultData)
-    vaultData.isPrivate = false
+    // vaultData.isPrivate = false
     const res = await api.post('api/vaults', vaultData)
     logger.log('create vault res', res)
     // AppState.vaults = [new Vault(res.data), ...AppState.vaults]

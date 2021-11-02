@@ -1,8 +1,8 @@
 <template>
   <div class="component">
 
-<div class="M-5 ">
-  <h1>{{vault}}</h1>
+<div class="m-5 masonry-with-columns" >
+  <VaultKeep v-for="k in keep" :key="k.id" :keep="k" class="rounded-top m-2"/>
 </div>
   </div>
 </template>
@@ -14,36 +14,35 @@ import { Vault } from '../models/Vault';
 import { AppState } from '../AppState';
 import { vaultKeepsService} from '../services/VaultKeepsService';
 import Pop from '../utils/Pop';
-import { watchEffect } from '@vue/runtime-core';
+import { onMounted, watchEffect } from '@vue/runtime-core';
 import { logger } from '../utils/Logger';
 import { useRoute } from 'vue-router';
+import { Keep } from '../models/Keep';
+import { profilesService } from '../services/ProfilesService';
 export default {
   name: "Vault",
-   props: {
-    vault: {
-      type: Vault
-    },
-  },
-  setup(props){
+  setup(){
     const route = useRoute();
-    watchEffect(() => {
+    onMounted(() => {
       try{
         vaultKeepsService.getById(route.params.vaultId);
+        // profilesService.getById(route.params.profileId)
       }catch (error){
         Pop.toast(error.message, 'error')
         logger.log(error)
       }
     })
     return {
-      profile: computed(() => AppState.profile),
-      vault: computed(() => AppState.vault),
       keep: computed(() => AppState.keep),
-      keepVaults: computed(() => AppState.keepVaults),
-      keepVault: computed(() => AppState.keepVault),
-      profileKeeps: computed(() => AppState.profileKeeps),
-      profileKeep: computed(() => AppState.profileKeep),
-      profileVault: computed(() => AppState.profileVault),
-      profileVaults: computed(() => AppState.profileVaults)
+      async viewCount(keep) {
+        try {
+          keep.views = keep.views + 1;
+          await keepsService.keepInteractions(keep);
+        } catch (error) {
+          Pop.toast(error.message, "error");
+          logger.log(error)
+        }
+    }
     }
   }
 }
@@ -51,5 +50,27 @@ export default {
 
 
 <style lang="scss" scoped>
-
+.masonry-with-columns {
+  columns: 6 300px;
+  column-gap: 1rem;
+  div {
+    width: 200px;
+    // background: #EC985A;
+    color: white;
+    margin: 0 1rem 1rem 0;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-family: system-ui;
+    font-weight: 900;
+    font-size: 2rem;
+  } 
+  @for $i from 1 through 36 { 
+    div:nth-child(#{$i}) {
+      $h: (random(400) + 100) + px;
+      height: $h;
+      line-height: $h;
+    }
+  }
+}
 </style>
