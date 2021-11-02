@@ -21,7 +21,7 @@
         </div>
         <!-- {{profileVaults}} -->
       
-        <ProfileVault v-for="k in profileVaults" :key="k.id" :profileVault="k" class="rounded m-2"/>
+        <ProfileVault v-for="k in profileVaults" :key="k.id" :profileVault="k"/>
        
       </div>
       <div class="row my-5" v-if="profileKeeps">
@@ -30,12 +30,9 @@
         <i class="mdi mdi-plus f-20" title="Add Keep" data-bs-toggle="modal" :data-bs-target="'#k-modal-' + keep.id" ></i>
         </div>
         <div class="masonry-with-columns">
-        <!-- {{profileKeeps}} -->
-        
 
-        <ProfileKeep v-for="k in profileKeeps" :key="k.id" :profileKeep="k" class="rounded m-2"/>
-        
-          
+        <ProfileKeep v-for="k in profileKeeps" :key="k.id" :profileKeep="k"/>
+
         </div>
       </div>
     </div>
@@ -81,7 +78,6 @@ export default {
     return {
       profile: computed(() => AppState.profile),
       vault: computed(() => AppState.vault),
-      keep: computed(() => AppState.keep),
       keeps: computed(() => AppState.keeps),
       profileKeeps: computed(() => AppState.profileKeeps),
       profileKeep: computed(() => AppState.profileKeep),

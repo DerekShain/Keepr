@@ -1,10 +1,26 @@
 <template>
-  <div class="myCard text-white my-3">
-  <img :src="profileKeep.img" class="card-img" alt="..." >
-  <div class="card-img-overlay" data-bs-toggle="modal" :data-bs-target="'#k-modal-' + profileKeep.id">
-    <h5 class="card-title">{{profileKeep.name}}</h5>
+ <div class="col">
+  <div class="myCard text-white m-2">
+    <img :src="profileKeep.img" class="card-img" alt="..." />
+    <div
+      class="card-img-overlay"
+      data-bs-toggle="modal"
+      :data-bs-target="'#k-modal-' + profileKeep.id"
+      @click="viewCount(profileKeep)"
+    >
+      <h5 class="card-title">{{ profileKeep.name }}</h5>
+      <div class="" v-if="profileKeep.creator">
+        <div class="" @click.stop="goToProfile()">
+          <img
+            :src="profileKeep.creator.picture"
+            class="rounded-circle user-img selectable"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+  </div>
 <Modal :id="'k-modal-' + profileKeep.id" class="text-light">
     <template #modal-body>
       <KeepInfo :keep="profileKeep" class="" />
@@ -21,6 +37,7 @@ import Pop from "../utils/Pop";
 import { logger } from '../utils/Logger';
 import { profilesService } from '../services/ProfilesService';
 import { useRoute } from 'vue-router';
+import { Account } from '../models/Account';
 
 export default {
   props: {
@@ -29,6 +46,12 @@ export default {
       default: () => {
         return new Keep();
       },
+      keep:{
+        type: Keep,
+      },
+      account:{
+        type: Account
+      }
     },
   },
   setup(props) {
@@ -41,14 +64,23 @@ export default {
     return {
       profileKeeps: computed(() => AppState.profileKeeps),
       keep:computed(() => AppState.keep),
-      keeps:computed(() => AppState.keeps)
+      keeps:computed(() => AppState.keeps),
+       async viewCount(profileKeep) {
+        try {
+          keep.views = keep.views + 1;
+          await keepsService.keepInteractions(profileKeep);
+        } catch (error) {
+          Pop.toast(error.message, "error");
+          logger.log(error);
+        }
+      },
       }
     }
   }
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .card-img-overlay {
   display: flex;
   flex-direction: row;

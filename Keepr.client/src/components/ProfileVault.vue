@@ -1,9 +1,14 @@
 <template>
-  <div class="myCard" style="width: 18rem">
+  <div class="card shadow m-2" style="width: 18rem">
     <div class="card-body">
       <h5 class="card-title">{{ profileVault.name }}</h5>
       <p class="card-text">{{ profileVault.description }}</p>
-      <p>{{ profileVault.isPrivate }}</p>
+      <div v-if="profileVault.isPrivate === true">
+        <b>Private Vault!</b>
+      </div>
+      <div v-else>
+        <b>Public Vault!</b>
+      </div>
       <div class="d-flex">
         <router-link
           :to="{ name: 'Vault', params: { vaultId: profileVault.id } }"
@@ -68,7 +73,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .card-img-overlay {
   display: flex;
   flex-direction: row;

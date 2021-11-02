@@ -2,12 +2,6 @@
   <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl ">
       <div class="modal-content">
-        <div class="modal-header text-light">
-          <h5 class="modal-title" id="exampleModalLabel">
-            <slot name="modal-title"></slot>
-          </h5>
-          <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
         <div class="modal-body text-light">
           <slot name="modal-body"></slot>
         </div>

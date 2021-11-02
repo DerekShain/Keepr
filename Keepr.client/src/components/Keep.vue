@@ -1,17 +1,26 @@
 <template>
+<div class="col">
   <div class="myCard text-white m-2">
     <img :src="keep.img" class="card-img" alt="..." />
-    <div class="card-img-overlay" data-bs-toggle="modal" :data-bs-target="'#k-modal-' + keep.id" @click="viewCount(keep)">
-      <h5 class="card-title">{{ keep.name }}</h5>
-        <div class="" v-if="keep.creator">
-      <!-- <router-link :to="{ name: 'Profile', params: {profileId: keep.creatorId} }" class="btn text-success lighten-30 selectable text-uppercase"> -->
-        <div class="" @click.stop="goToProfile()">
-      <img :src="keep.creator.picture" class="rounded-circle user-img selectable" alt="" />
+    <div
+      class="card-img-overlay"
+      
+    >
+      <h5 class="card-title selectable" data-bs-toggle="modal"
+      :data-bs-target="'#k-modal-' + keep.id"
+      @click="viewCount(keep)">{{ keep.name }}</h5>
+      <div class="" v-if="keep.creator">
+        <div class="" @click.prevent="goToProfile()">
+          <img
+            :src="keep.creator.picture"
+            class="rounded-circle user-img selectable"
+            alt=""
+          />
         </div>
-          <!-- </router-link> -->
-        </div>
+      </div>
     </div>
   </div>
+</div>
   <Modal :id="'k-modal-' + keep.id" class="text-light">
     <template #modal-body>
       <KeepInfo :account="account" :keep="keep" class="" />
@@ -25,10 +34,10 @@ import { Keep } from "../models/Keep";
 import { computed } from "@vue/runtime-core";
 import { AppState } from "../AppState";
 import Pop from "../utils/Pop";
-import { logger } from '../utils/Logger';
-import { Account } from '../models/Account'
-import { router } from '../router';
-import { Modal } from 'bootstrap';
+import { logger } from "../utils/Logger";
+import { Account } from "../models/Account";
+import { router } from "../router";
+import { Modal } from "bootstrap";
 export default {
   props: {
     keep: {
@@ -38,7 +47,7 @@ export default {
       },
     },
     account: {
-      type: Account
+      type: Account,
     },
   },
   setup(props) {
@@ -51,6 +60,10 @@ export default {
       async deleteKeep() {
         try {
           if (await Pop.confirm()) {
+            const modal = Modal.getOrCreateInstance(
+              document.getElementById("k-modal-" + props.keep.id)
+            );
+            modal.hide();
             await keepsService.deleteKeep(props.keep.id);
             Pop.toast("Keep Deleted");
           }
@@ -65,21 +78,25 @@ export default {
           await keepsService.keepInteractions(keep);
         } catch (error) {
           Pop.toast(error.message, "error");
-          logger.log(error)
+          logger.log(error);
         }
       },
-      async goToProfile(){
-        const modal = Modal.getOrCreateInstance(document.getElementById('k-modal-' + props.keep.id));
-        modal.hide()
-        router.push({ name: 'Profile', params: {profileId: props.keep.creatorId} })
-      }
+      async goToProfile() {
+        router.push({
+          name: "Profile",
+          params: { profileId: props.keep.creatorId },
+        });
+        const modal = Modal.getOrCreateInstance(
+          document.getElementById("k-modal-" + props.keep.id)
+        );
+        modal.hide();
+      },
     };
   },
 };
 </script>
 
-<style lang="scss">
-
+<style lang="scss" scoped>
 .card-img-overlay {
   display: flex;
   flex-direction: row;
@@ -92,9 +109,7 @@ export default {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-
   background-clip: border-box;
-
   border-radius: 0.25 rem;
 }
 
@@ -105,5 +120,4 @@ export default {
 .user-img {
   height: 45px;
 }
-
 </style>

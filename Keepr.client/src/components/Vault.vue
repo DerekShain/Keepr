@@ -1,5 +1,5 @@
 <template>
-  <div class="card" style="width: 18rem;">
+  <div class="card shadow" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">{{keep.name}}</h5>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -59,7 +59,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .card-img-overlay {
   display: flex;

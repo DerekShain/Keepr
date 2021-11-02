@@ -1,5 +1,5 @@
 <template>
-  <div class="myCard text-white my-3">
+  <div class="myCard text-white my-3 shadow">
   <img :src="keep.img" class="card-img" alt="..." >
   <div class="card-img-overlay" data-bs-toggle="modal" :data-bs-target="'#k-modal-' + keep.id" @click="viewCount(keep)">
     <h5 class="card-title">{{keep.name}}</h5>
@@ -72,7 +72,7 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .card-img-overlay {
   display: flex;
   flex-direction: row;

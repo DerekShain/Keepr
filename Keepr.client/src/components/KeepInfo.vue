@@ -92,15 +92,11 @@ export default {
     const route = useRoute();
     watchEffect(() => {
       try{
-        // debugger;
         if(props.account){
          profilesService.getKeepsByProfileId(props.account.id),
           profilesService.getVaultsByProfileId(props.account.id)
         }
         keepsService.getAll()
-        // profilesService.getById(),
-        // profilesService.getKeepsByProfileId(props.account.id),
-        // profilesService.getVaultsByProfileId(props.account.id)
       }catch (error){
         Pop.toast(error.message, 'error')
       }

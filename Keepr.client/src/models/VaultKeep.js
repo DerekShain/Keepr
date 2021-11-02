@@ -1,8 +1,10 @@
 export class VaultKeep
 {
-  constructor (data){
+  constructor (data= {}){
     this.id = data.id
     this.creatorId = data.creatorId
+    this.profileId = data.profileId 
+    this.accountId = data.accountId
     this.vaultKeepId = data.vaultKeepId
     this.keepId = data.keepId
     this.name = data.name
