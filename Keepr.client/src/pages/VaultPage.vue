@@ -36,20 +36,24 @@ export default {
         return new Keep();
       }
     },
-      vault: {
+      vault:{
         type: Vault
       },
       account: {
         type: Account
-      }
+      },
+      
     },
   
   setup(props) {
     const route = useRoute();
     onMounted(() => {
       try {
-        vaultKeepsService.getById(route.params.vaultId);
-        vaultsService.getById(route.params.vaultId);
+        vaultKeepsService.getById(route.params.vaultId),
+        vaultsService.getById(route.params.vaultId),
+        profilesService.getById(route.params.profileId),
+      profilesService.getKeepsByProfileId(route.params.profileId),
+      profilesService.getVaultsByProfileId(route.params.profileId)
       } catch (error) {
         Pop.toast(error.message, "error");
         logger.log(error);
@@ -79,7 +83,7 @@ export default {
           if (await Pop.confirm()) {
             await vaultsService.deleteVault(route.params.vaultId);
             Pop.toast("Vault Deleted");
-            router.push({ name: "Profile", params: { profileId: route.params.profileId }})
+            router.push({ name: "Profile", params: { profileId: vault.creatorId}})
           }
         } catch (error) {
           Pop.toast("Error Deleting Vault", "error");
