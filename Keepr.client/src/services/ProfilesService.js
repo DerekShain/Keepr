@@ -20,6 +20,12 @@ class ProfilesService{
     AppState.profileKeeps = res.data.map(k => new Keep(k))
 
   }
+  async getVaultsByAccountId(profileId, vaultData){
+    AppState.accountVaults = null
+    const res = await api.get(`api/profiles/${profileId}/vaults`, vaultData)
+    logger.log('get profile vaults res', res)
+    AppState.accountVaults = res.data.map(k => new Vault(k))
+  }
   async getVaultsByProfileId(profileId, vaultData){
     AppState.profileVaults = null
     const res = await api.get(`api/profiles/${profileId}/vaults`, vaultData)

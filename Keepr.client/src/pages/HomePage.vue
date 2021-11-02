@@ -30,8 +30,10 @@ export default {
     },
   },
   setup(props) {
+    const route = useRoute();
     watchEffect(() => {
       try {
+        
         keepsService.getAll();
       } catch (error) {
         Pop.toast(error.message, "error");

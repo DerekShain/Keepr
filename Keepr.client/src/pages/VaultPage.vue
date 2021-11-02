@@ -53,8 +53,8 @@ export default {
         vaultKeepsService.getById(route.params.vaultId),
         vaultsService.getById(route.params.vaultId),
         profilesService.getById(route.params.profileId),
-      profilesService.getKeepsByProfileId(route.params.profileId),
-      profilesService.getVaultsByProfileId(route.params.profileId)
+        profilesService.getKeepsByProfileId(route.params.profileId),
+        profilesService.getVaultsByProfileId(route.params.profileId)
       } catch (error) {
         Pop.toast(error.message, "error");
         logger.log(error);

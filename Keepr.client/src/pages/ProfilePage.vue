@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { computed, watchEffect } from "vue";
+import { computed, onMounted, watchEffect } from "vue";
 import { AppState } from "../AppState";
 import { Keep } from "../models/Keep";
 import { profilesService } from "../services/ProfilesService";
@@ -70,7 +70,7 @@ export default {
   },
   setup(props) {
     const route = useRoute();
-    watchEffect(() => {
+    onMounted(() => {
       profilesService.getById(route.params.profileId),
       profilesService.getKeepsByProfileId(route.params.profileId),
       profilesService.getVaultsByProfileId(route.params.profileId)

@@ -31,7 +31,7 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <div v-if="account.id">
-              <li v-for="vault in profileVaults" :key="vault.id" @click="addToVault(vault, keep)" class="selectable">{{vault.name}}</li>
+              <li v-for="vault in accountVaults" :key="vault.id" @click="addToVault(vault, keep)" class="selectable">{{vault.name}}</li>
             </div>
           </ul>
         </div>
@@ -75,6 +75,7 @@ import { vaultKeepsService } from '../services/VaultKeepsService';
 import { Account } from '../models/Account';
 import { profilesService } from '../services/ProfilesService';
 import { useRoute, useRouter } from 'vue-router';
+import { Vault } from '../models/Vault';
 
 export default {
   props: {
@@ -96,6 +97,7 @@ export default {
          profilesService.getKeepsByProfileId(props.account.id),
           profilesService.getVaultsByProfileId(props.account.id)
         }
+        // profilesService.getVaultsByProfileId(AppState.account.id)
         keepsService.getAll()
       }catch (error){
         Pop.toast(error.message, 'error')
@@ -104,7 +106,10 @@ export default {
     return {
       account: computed(() => AppState.account),
       keeps: computed(() => AppState.keeps),
+      vault: computed(() => AppState.vault),
+      vaults: computed(() => AppState.vaults),
       profileVaults: computed(() => AppState.profileVaults),
+      accountVaults: computed(() => AppState.accountVaults),
       async deleteKeep() {
         try {
           if (await Pop.confirm()) {

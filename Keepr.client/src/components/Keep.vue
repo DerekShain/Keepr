@@ -20,7 +20,7 @@
 </div>
   <Modal :id="'k-modal-' + keep.id" class="text-light">
     <template #modal-body>
-      <KeepInfo  :keep="keep"/>
+      <KeepInfo  :keep="keep" :account="account"/>
     </template>
   </Modal>
 </template>
