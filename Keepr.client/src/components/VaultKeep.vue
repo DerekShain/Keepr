@@ -1,9 +1,9 @@
 <template>
-  <div class="myCard text-white ">
+  <div class="myCard text-white m-2">
   <img :src="keep.img" class="card-img" alt="..." >
   <div class="card-img-overlay" data-bs-toggle="modal" :data-bs-target="'#k-modal-' + keep.id" @click="viewCount(keep)">
     <h5 class="card-title">{{keep.name}}</h5>
-    <div v-if="keep.creatorId === account.id">
+    <div v-if="vault.creator.id === account.id">
 
     <i
             class="mdi mdi-delete-forever selectable text-danger f-20 mx-3"
@@ -45,6 +45,7 @@ export default {
    const route = useRoute();
     return {
       account: computed(() => AppState.account),
+      vault: computed(() => AppState.vault),
        async removeKeep() {
         try {
           if (await Pop.confirm()) {

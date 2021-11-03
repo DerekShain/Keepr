@@ -3,7 +3,7 @@
     <div class="col">
       <img :src="keep.img" class="img-fluid rounded-start" alt="..." />
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8 this-works">
       <div class="card-header bg-white mb-5">
         <i class="mdi mdi-eye f-18" title="views">{{ keep.views }}</i>
         <i class="mdi mdi-temperature-kelvin f-18" title="keeps">{{
@@ -164,5 +164,9 @@ export default {
 }
 .user-img {
   height: 45px;
+}
+.this-works{
+  display: flex;
+  flex-direction: column;
 }
 </style>
