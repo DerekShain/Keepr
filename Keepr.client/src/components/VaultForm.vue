@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="createVault()" class="px-5 mx-5">
+  <form @submit.prevent="createVault()" class="px-5 mx-5 text-dark">
     <div class="form-group">
       <label for="title">Vault Name</label>
       <input type="text"
@@ -19,7 +19,7 @@
       >
     </div>
     <div class="form-group">
-      <label for="published">private </label>
+      <label for="published">Private? </label>
       <input
         type="checkbox"
         class="ms-3 mt-3"
@@ -28,8 +28,8 @@
       />
     </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-success mt-2">
-          Update
+        <button type="submit" class="btn btn-dark mt-2">
+          Add Vault
         </button>
       </div>
   </form>

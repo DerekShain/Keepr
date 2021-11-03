@@ -31,7 +31,7 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <div v-if="account.id">
-              <li v-for="vault in accountVaults" :key="vault.id" @click="addToVault(vault, keep)" class="selectable">{{vault.name}}</li>
+              <li v-for="vault in accountVaults" :key="vault.id" @click="addToVault(vault, keep)" class="selectable">{{vault.name}}-{{vault.id}}</li>
             </div>
           </ul>
         </div>

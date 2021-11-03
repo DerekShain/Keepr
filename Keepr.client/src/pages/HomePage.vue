@@ -1,5 +1,5 @@
 <template>
-  <div class="m-2 row">
+  <div class="m-2 row fix">
     <div class="masonry-with-columns">
       <Keep v-for="k in keeps" :key="k.id" :keep="k" />
     </div>
@@ -33,7 +33,6 @@ export default {
     const route = useRoute();
     watchEffect(() => {
       try {
-        
         keepsService.getAll();
       } catch (error) {
         Pop.toast(error.message, "error");
@@ -53,28 +52,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.home {
-  display: grid;
-  // height: 80vh;
-  place-content: center;
-  text-align: center;
-  user-select: none;
-  .home-card {
-    width: 50vw;
-    > img {
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
-    }
-  }
-}
 body {
   margin: 0;
   padding: 1rem;
 }
-
 .masonry-with-columns {
   columns: 200px;
   column-gap: 1rem;
@@ -83,9 +64,7 @@ body {
     background: #ec985a;
     color: white;
     margin: 0 1rem 1rem 0;
-    // display: inline-block;
     width: 100%;
-    // text-align: center;
     font-family: system-ui;
     font-weight: 900;
     font-size: 2rem;

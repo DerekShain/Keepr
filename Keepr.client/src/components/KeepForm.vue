@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="createKeep()" class="px-5 mx-5">
+  <form @submit.prevent="createKeep()" class="px-5 mx-5 text-dark">
     <div class="form-group">
       <label for="title">Keep Name</label>
       <input type="text"
@@ -28,8 +28,8 @@
       >
     </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-success mt-2">
-          Update
+        <button type="submit" class="btn btn-dark mt-2">
+          Add Keep
         </button>
       </div>
   </form>

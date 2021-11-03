@@ -1,13 +1,16 @@
 <template>
-  <div class="myCard text-white my-3 shadow">
+  <div class="myCard text-white ">
   <img :src="keep.img" class="card-img" alt="..." >
   <div class="card-img-overlay" data-bs-toggle="modal" :data-bs-target="'#k-modal-' + keep.id" @click="viewCount(keep)">
     <h5 class="card-title">{{keep.name}}</h5>
+    <div v-if="keep.creatorId === account.id">
+
     <i
             class="mdi mdi-delete-forever selectable text-danger f-20 mx-3"
             title="Remove Keep"
             @click.stop="removeKeep()"
           ></i>
+    </div>
   </div>
 </div>
  <Modal :id="'k-modal-' + keep.id" class="text-light">
@@ -81,19 +84,24 @@ export default {
 }
 .myCard {
   position: relative;
-  display: flex;
-  flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-
   background-clip: border-box;
-
-  border-radius: 0.25 rem;
+  border-radius: 35px;
+}
+.myCard:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
 .card-img {
   height: inherit;
   object-fit: cover;
+  border-radius: 35px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+.card-img:hover{
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 .user-img {
   height: 45px;

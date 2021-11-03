@@ -1,5 +1,5 @@
 <template>
-  <div class="card shadow m-2" style="width: 18rem">
+  <div class="myCard m-2 background-colors text-shadow" style="width: 18rem">
     <div class="card-body">
       <h5 class="card-title">{{ profileVault.name }}</h5>
       <p class="card-text">{{ profileVault.description }}</p>
@@ -12,7 +12,7 @@
       <div class="d-flex">
         <router-link
           :to="{ name: 'Vault', params: { vaultId: profileVault.id }, query: {creatorId: account.id} }"
-          class="btn btn-dark lighten-30 selectable text-uppercase"
+          class="btn btn-black text-light lighten-30 selectable text-uppercase"
         >
           GO TO VAULT
         </router-link>
@@ -86,21 +86,54 @@ export default {
 }
 .myCard {
   position: relative;
-  display: flex;
-  flex-direction: column;
+  background: #fff;
   min-width: 0;
   word-wrap: break-word;
-
   background-clip: border-box;
-
-  border-radius: 0.25 rem;
+  border-radius: 35px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
 }
-
+.myCard:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
 .card-img {
   height: inherit;
   object-fit: cover;
+  border-radius: 35px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+.card-img:hover{
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 .user-img {
   height: 45px;
+}
+.background-colors {
+	background: linear-gradient(-45deg, #000000, #e67591, #3797bd, #10ad8b);
+	background-size: 400% 400%;
+	animation: gradient 5s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+.btn-black {
+  background-color: #000;
+  color: #fff;
+}
+.text-shadow{
+  text-shadow: 2px 2px 4px #000000;
+  color: #fff;
+	animation: gradient 15s ease infinite;
 }
 </style>

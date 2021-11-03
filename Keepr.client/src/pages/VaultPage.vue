@@ -4,11 +4,13 @@
     <div class="m-5"><h1>{{vault.name}}</h1>
     <h3>Keeps: {{ keep.length }}</h3> 
     </div>
-    <div class="d-flex m-2">
+    <div class="d-flex m-2" v-if="vault.creatorId === account.id">
       <button class="btn btn-dark text-light" @click="deleteVault()">Delete Vault</button>
     </div>
-    <div class="m-5 masonry-with-columns">
+    <div class="">
+    <div class="m-2 masonry-with-columns">
       <VaultKeep v-for="k in keep" :key="k.id" :keep="k" />
+    </div>
     </div>
   </div>
 </template>

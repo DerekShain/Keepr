@@ -1,6 +1,6 @@
 <template>
-<div class="col">
-  <div class="myCard text-white m-2">
+<div class="mb-2">
+  <div class="myCard text-shadow ">
     <img :src="keep.img" class="card-img" alt="..." />
     <div class="card-img-overlay">
       <h5 class="card-title selectable" data-bs-toggle="modal"
@@ -103,19 +103,29 @@ export default {
 }
 .myCard {
   position: relative;
-  display: flex;
-  flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
   background-clip: border-box;
-  border-radius: 0.25 rem;
+  border-radius: 35px;
 }
-
+.myCard:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
 .card-img {
   height: inherit;
   object-fit: cover;
+  border-radius: 35px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+.card-img:hover{
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 .user-img {
   height: 45px;
+}
+.text-shadow{
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
 }
 </style>
