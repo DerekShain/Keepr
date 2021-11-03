@@ -113,10 +113,10 @@ export default {
       async deleteKeep() {
         try {
           if (await Pop.confirm()) {
-            await keepsService.deleteKeep(props.keep.id);
-            Pop.toast("Keep Deleted");
             const modal = Modal.getOrCreateInstance(document.getElementById("k-modal-" + props.keep.id));
             modal.hide();
+            await keepsService.deleteKeep(props.keep.id);
+            Pop.toast("Keep Deleted");
           }
         } catch (error) {
           Pop.toast("Error Deleting Vault", "error");

@@ -58,9 +58,7 @@ export default {
       async deleteKeep() {
         try {
           if (await Pop.confirm()) {
-            const modal = Modal.getOrCreateInstance(
-              document.getElementById("k-modal-" + props.keep.id)
-            );
+            const modal = Modal.getOrCreateInstance(document.getElementById("k-modal-" + props.keep.id));
             modal.hide();
             await keepsService.deleteKeep(props.keep.id);
             Pop.toast("Keep Deleted");
@@ -84,9 +82,7 @@ export default {
           name: "Profile",
           params: { profileId: props.keep.creatorId },
         });
-        const modal = Modal.getOrCreateInstance(
-          document.getElementById("k-modal-" + props.keep.id)
-        );
+        const modal = Modal.getOrCreateInstance(document.getElementById("k-modal-" + props.keep.id));
         modal.hide();
       },
     };
